@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import edu.br.infnet.cadastracliente.controller.ClienteController;
 import edu.br.infnet.cadastracliente.controller.EnderecoController;
+import edu.br.infnet.cadastracliente.model.Cliente;
 import edu.br.infnet.cadastracliente.model.Endereco;
 
 @SpringBootTest
@@ -17,6 +19,8 @@ class TestaListaCliente {
 	
 	@Autowired
 	private EnderecoController enderecoController;
+	@Autowired
+	private ClienteController clienteController;
 
 	@Test
 	void test() {
@@ -27,6 +31,15 @@ class TestaListaCliente {
 		
 		assertEquals(enderecoEsperado.getNomeLogradouro(), enderecoAtual.getNomeLogradouro());
 
+	}
+	@Test
+	void testCliente() {
+		Cliente clienteEsperado = new Cliente();
+		clienteEsperado.setNome("JOSE");
+			
+		Cliente clienteAtual = clienteController.listarClientes().get().get(0);
+		
+		assertEquals(clienteEsperado.getNome(), clienteAtual.getNome());
 	}
 
 }

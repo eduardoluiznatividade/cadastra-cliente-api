@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 import lombok.EqualsAndHashCode;
@@ -37,7 +38,7 @@ public class Cliente implements Serializable{
 	private String nome;
 	
 	@Getter
-	@OneToMany(mappedBy = "cliente")
+	@Transient
 	List<Endereco> enderecos;
 	
 	

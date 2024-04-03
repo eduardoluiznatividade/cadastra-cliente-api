@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,15 +18,14 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
-@Entity(name = "T_TIPO_ENDERECO")	
+@Entity(name = "T_TIPO_LOGRADOURO")	
 public class TipoLogradouro implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Getter
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_TIPO_ENDERECO")
+	@Column(name = "ID_LOGRADOURO")
 	private int id;
 	
 	@Getter

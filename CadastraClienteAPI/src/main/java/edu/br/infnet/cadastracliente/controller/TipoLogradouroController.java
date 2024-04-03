@@ -23,11 +23,9 @@ public class TipoLogradouroController {
 	TipoLogradouroService tipoLogradouroService;
 	
 
-	@GetMapping("/LogradouroController/{id}")
+	@GetMapping("/lista/{id}")
 	public TipoLogradouro listaLogradouro(@PathVariable("id") int id) {
-		
 		Optional<TipoLogradouro> opTipoLogradouro = tipoLogradouroService.mostraTipoLogradouroPorId(id);
-		
 		if(opTipoLogradouro.isPresent()) {
 			TipoLogradouro TipoLogradouroFound = opTipoLogradouro.get();		
 			return TipoLogradouroFound;
@@ -36,17 +34,17 @@ public class TipoLogradouroController {
 		return null;
 	}
 	
-	@PostMapping("/LogradouroController")
-	public void insereLogradouro(TipoLogradouro tipoLogradouro) {
+	@PostMapping("/salvar")
+	public void insereLogradouro(@RequestBody TipoLogradouro tipoLogradouro) {
 		tipoLogradouroService.criaTipoLogradouro(tipoLogradouro);
 	}
 	
-	@DeleteMapping("/LogradouroController/{id}")
+	@DeleteMapping("/deleta/{id}")
 	public void deletaLogradouro(@PathVariable("id") int id) {
 		tipoLogradouroService.deletaTipoLogradouroPorId(id);
 	}
 	
-	@PutMapping("/LogradouroController/{id}")
+	@PutMapping("/altera/{id}")
 	public void alteraLogradouro(@PathVariable("id") int id,@RequestBody TipoLogradouro tipoLogradouro) {
 		tipoLogradouroService.alteraTipoLogradouro(tipoLogradouro);
 	}	

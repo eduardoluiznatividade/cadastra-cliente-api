@@ -11,7 +11,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Transient;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,20 +24,20 @@ import lombok.ToString;
 @ToString
 @Entity(name = "T_ENDERECO")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Endereco implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
 	@Getter
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_ENDERECO")
 	private int id;
 	
 	@Getter
 	@Setter
-	@Column(name = "TP_LOGRADOURO")
-	@Transient
+	@OneToOne
+	@JoinColumn(name="ID_LOGRADOURO")
 	private TipoLogradouro tipoLogradouro;
 	
 	@Getter
@@ -69,10 +71,9 @@ public class Endereco implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private TipoEndereco tipoEndereco;
 	
-	@Getter
-	@Setter
-	@ManyToOne
-	@JoinColumn(name = "cliente_id")
-	private Cliente cliente;
+	//@Getter
+	//@Setter
+	//@Transient
+	//private Cliente cliente;
 
 }

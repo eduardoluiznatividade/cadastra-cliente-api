@@ -79,7 +79,7 @@ public class Endereco implements Serializable{
 	
 	@Getter
 	@Setter
-	@ManyToOne
+	@OneToOne(mappedBy = "enderecos")
 	@JoinColumn(name = "cliente_id")
 	@JsonBackReference(value="endereco-cliente")
 	private Cliente cliente;

@@ -24,7 +24,6 @@ public class EnderecoServiceImp implements EnderecoService {
 	public Optional<List<Endereco>> listarTodos() {
 		List<Endereco> enderecos = enderecoRepository.findAll();
 		
-		enderecos.forEach(e -> log.info(e.toString()));
 		
 		return enderecos.isEmpty()
 				? Optional.empty()

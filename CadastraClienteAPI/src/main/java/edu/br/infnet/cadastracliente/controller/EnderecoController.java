@@ -26,11 +26,11 @@ public class EnderecoController {
 		return enderecoService.listarTodos();
 	}
 	
-	
 	@PostMapping("/salvar")
 	public Endereco salvarEndereco(@RequestBody Endereco endereco) {		
 			return enderecoService.salvar(endereco);
 	}
+	
 	@GetMapping("/lista/{id}")
 	public Endereco listaEndereco(@PathVariable("id") int id) {
 		Optional<Endereco> opTipoLogradouro = enderecoService.mostraTipoEnderecoPorId(id);

@@ -7,7 +7,7 @@ import edu.br.infnet.cadastracliente.model.Cliente;
 
 public interface ClienteService {
 	
-	public Cliente salvar (Cliente cliente)throws Exception ;
+	public Cliente salvar (Cliente cliente) ;
 	
 	public Cliente atualizar(Cliente cliente)throws Exception ;
 	

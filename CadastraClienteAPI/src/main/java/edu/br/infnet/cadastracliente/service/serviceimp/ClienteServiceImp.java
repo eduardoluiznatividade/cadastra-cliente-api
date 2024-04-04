@@ -19,11 +19,11 @@ public class ClienteServiceImp implements ClienteService {
 	private ClienteRepository clienteRepository;
 	
 	@Override
-	public Cliente salvar(Cliente cliente) throws Exception {
-		if(cliente.getId()==null) {
+	public Cliente salvar(Cliente cliente){
+		/*if(cliente.getId()==null) {
 			throw new Exception("O cliente não pode ser salvo na base");
 		}
-		
+		*/
 		Cliente clienteSalvo = clienteRepository.save(cliente);
 		return clienteSalvo;
 	}
@@ -40,9 +40,6 @@ public class ClienteServiceImp implements ClienteService {
 	@Override
 	public Optional<List<Cliente>> listarTodos() {
 		List<Cliente> resultados = clienteRepository.findAll();
-		
-		resultados.forEach(e -> log.info(e.toString()));
-		
 		return resultados.isEmpty()
 				? Optional.empty()
 						: Optional.of(resultados);

@@ -4,8 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,15 +42,17 @@ public class Cliente implements Serializable{
 	private String nome;
 	
 	@Getter
-	@Transient
-	List<Endereco> enderecos;
+	@OneToMany
+	@JoinColumn(name = "cliente_id")
+	@JsonManagedReference(value="endereco-cliente")
+	private List<Endereco> enderecos;
 	
 	
 	
 	public Cliente(String nome) {
 		this.nome = nome;
 	}
-	
+	/*
 	//TODO LIMITAR A 2 ENDERECOS
 	public void adicionaEndereco(Endereco endereco) {
 		if (enderecos.isEmpty()) {
@@ -55,7 +61,7 @@ public class Cliente implements Serializable{
 			enderecos.add(endereco);
 			
 		}
-	}
+	}*/
 	
 
 }

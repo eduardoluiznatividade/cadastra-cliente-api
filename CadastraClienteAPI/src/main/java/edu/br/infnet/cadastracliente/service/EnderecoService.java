@@ -13,4 +13,4 @@ public interface EnderecoService {
 	
 	public Endereco salvar (Endereco endereco) ;
 	
-	public Optional<Endereco> mostraTipoEnderecoPorId(int id);}
+	public Optional<Endereco> pesquisaEnderecoPorId(int id);}

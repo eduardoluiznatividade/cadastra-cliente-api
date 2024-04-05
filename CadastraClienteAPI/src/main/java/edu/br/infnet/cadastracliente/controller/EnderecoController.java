@@ -36,7 +36,7 @@ public class EnderecoController {
 			
 		Optional<Endereco> optEnderecoFound;
 		if(endereco.getId() != 0) {
-			optEnderecoFound = enderecoService.mostraTipoEnderecoPorId(endereco.getId());	
+			optEnderecoFound = enderecoService.pesquisaEnderecoPorId(endereco.getId());	
 			if(!optEnderecoFound.isPresent()){
 				enderecoService.salvar(endereco);
 				return ResponseEntity.ok(endereco);
@@ -54,7 +54,7 @@ public class EnderecoController {
 	@Operation(summary = "Lista por ID",description = "Lista um enderço utilizando o ID como referencia", tags="Endereço")
 	@GetMapping("/lista/{id}")
 	public ResponseEntity<Endereco> listaEndereco(@PathVariable("id") int id) {
-		Optional<Endereco> opEndereco = enderecoService.mostraTipoEnderecoPorId(id);
+		Optional<Endereco> opEndereco = enderecoService.pesquisaEnderecoPorId(id);
 		
 		if(opEndereco.isPresent()) {
 			Endereco enderecoFound = opEndereco.get();		

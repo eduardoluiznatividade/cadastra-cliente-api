@@ -36,7 +36,7 @@ public class EnderecoServiceImp implements EnderecoService {
 		return enderecoSalvo;
 	}
 	@Override
-	public Optional<Endereco> mostraTipoEnderecoPorId(int id) {
+	public Optional<Endereco> pesquisaEnderecoPorId(int id) {
 			
 		return  enderecoRepository.findById(id);
 	}

@@ -17,6 +17,7 @@ import edu.br.infnet.cadastracliente.model.Cliente;
 import edu.br.infnet.cadastracliente.model.Endereco;
 import edu.br.infnet.cadastracliente.model.TipoLogradouro;
 import edu.br.infnet.cadastracliente.service.ClienteService;
+import edu.br.infnet.cadastracliente.service.EnderecoService;
 import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
@@ -26,20 +27,31 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 	
+	@Autowired
+	private EnderecoService enderecoService;
+	
 	//TODO Verificar relação OneToOne(se salvarmos 2 endereços em um cliente ele crasha)
 	@Operation(summary = "Salvar",description = "Salva um Cliente", tags="Cliente")
 	@PostMapping("/salvar")
-	public ResponseEntity<Cliente> salvarEndereco(@RequestBody Cliente cliente) {		
-			
-		Optional<Cliente> optClienteFound;
-		if(cliente.getId() != 0) {
-			optClienteFound = clienteService.pesquisarPorId(cliente.getId());	
-			if(!optClienteFound.isPresent()){
-				clienteService.salvar(cliente);
-				return ResponseEntity.ok(cliente);
-			}
-		}			 
-		return new ResponseEntity<Cliente>(HttpStatus.NOT_ACCEPTABLE);	
+	public ResponseEntity<Cliente> salvarCliente(@RequestBody Cliente cliente) {
+		boolean clienteValido = (cliente != null);
+		if (!clienteValido) {
+			return new ResponseEntity<Cliente>(HttpStatus.NO_CONTENT);
+		}
+		
+		boolean clienteCadastrado = clienteService.pesquisarPorId(cliente.getId()).isPresent();
+		if (clienteCadastrado) {
+			return new ResponseEntity<Cliente>(HttpStatus.CONFLICT);
+		}
+		
+		boolean clienteEnderecoCasdastrado = enderecoService.pesquisaEnderecoPorId(
+				cliente.getEnderecos().getId()).isPresent();
+		if (clienteEnderecoCasdastrado) {
+			return new ResponseEntity<Cliente>(HttpStatus.CONFLICT);
+		}
+		
+		clienteService.salvar(cliente);
+		return ResponseEntity.ok(cliente);
 	}
 	
 	

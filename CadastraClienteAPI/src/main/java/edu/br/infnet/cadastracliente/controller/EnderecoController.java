@@ -3,6 +3,8 @@ package edu.br.infnet.cadastracliente.controller;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,20 +32,35 @@ public class EnderecoController {
 	
 	@Operation(summary = "Salvar",description = "Salva um Endereço", tags="Endereço")
 	@PostMapping("/salvar")
-	public Endereco salvarEndereco(@RequestBody Endereco endereco) {		
-			return enderecoService.salvar(endereco);
+	public ResponseEntity<Endereco>salvarEndereco(@RequestBody Endereco endereco) {		
+			
+		Optional<Endereco> optEnderecoFound;
+		if(endereco.getId() != 0) {
+			optEnderecoFound = enderecoService.mostraTipoEnderecoPorId(endereco.getId());	
+			if(!optEnderecoFound.isPresent()){
+				enderecoService.salvar(endereco);
+				return ResponseEntity.ok(endereco);
+			}
+		}
+		
+				 
+		return new ResponseEntity<Endereco>(HttpStatus.NOT_ACCEPTABLE);
+		
+		
+	
 	}
 	
 	
 	@Operation(summary = "Lista por ID",description = "Lista um enderço utilizando o ID como referencia", tags="Endereço")
 	@GetMapping("/lista/{id}")
-	public Endereco listaEndereco(@PathVariable("id") int id) {
-		Optional<Endereco> opTipoLogradouro = enderecoService.mostraTipoEnderecoPorId(id);
-		if(opTipoLogradouro.isPresent()) {
-			Endereco TipoLogradouroFound = opTipoLogradouro.get();		
-			return TipoLogradouroFound;
+	public ResponseEntity<Endereco> listaEndereco(@PathVariable("id") int id) {
+		Optional<Endereco> opEndereco = enderecoService.mostraTipoEnderecoPorId(id);
+		
+		if(opEndereco.isPresent()) {
+			Endereco enderecoFound = opEndereco.get();		
+			return ResponseEntity.ok(enderecoFound);
 		}			
-		return null;	
+		return new ResponseEntity<Endereco>(HttpStatus.NOT_ACCEPTABLE);	
 	}
 	
 	
